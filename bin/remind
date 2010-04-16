@@ -26,6 +26,11 @@ else
   # assume command to be run
   system *ARGV
   status = $?
-  system "growlnotify", "-m", "#{ARGV.first} is finished", "remind"
+  system "growlnotify",
+         "-m",
+         "#{ARGV.first} #{status.success? ?
+                            "finished successfully" :
+                            "exited with errors"}",
+         "remind"
   exit status.to_i
 end
